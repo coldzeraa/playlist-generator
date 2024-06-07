@@ -1,0 +1,1271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Erstellungszeit: 07. Jun 2024 um 14:30
+- Server-Version: 10.4.32-MariaDB
+- PHP-Version: 8.2.12
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="musicgeneratordb" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="playlist">
+                CREATE TABLE `playlist` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  `totalTime` int(11) NOT NULL,
+                  `songId` int(11) NOT NULL,
+                  `userId` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `id` (`id`),
+                  KEY `f1` (`songId`),
+                  KEY `f2` (`userId`),
+                  CONSTRAINT `f1` FOREIGN KEY (`songId`) REFERENCES `song` (`id`),
+                  CONSTRAINT `f2` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="song">
+                CREATE TABLE `song` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  `artist` varchar(255) NOT NULL,
+                  `genre` varchar(255) NOT NULL,
+                  `mood` varchar(255) NOT NULL,
+                  `length` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `id` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="user">
+                CREATE TABLE `user` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `username` varchar(255) NOT NULL,
+                  `email` varchar(255) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `id` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Datenbank: 'musicgeneratordb'
+    -->
+    <database name="musicgeneratordb">
+        <!-- Tabelle playlist -->
+        <!-- Tabelle song -->
+        <table name="song">
+            <column name="id">1</column>
+            <column name="name">Bohemian Rhapsody</column>
+            <column name="artist">Queen</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Epic</column>
+            <column name="length">354</column>
+        </table>
+        <table name="song">
+            <column name="id">2</column>
+            <column name="name">Stairway to Heaven</column>
+            <column name="artist">Led Zeppelin</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Epic</column>
+            <column name="length">482</column>
+        </table>
+        <table name="song">
+            <column name="id">3</column>
+            <column name="name">Imagine</column>
+            <column name="artist">John Lennon</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Peaceful</column>
+            <column name="length">183</column>
+        </table>
+        <table name="song">
+            <column name="id">4</column>
+            <column name="name">Hotel California</column>
+            <column name="artist">Eagles</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Mellow</column>
+            <column name="length">390</column>
+        </table>
+        <table name="song">
+            <column name="id">5</column>
+            <column name="name">Billie Jean</column>
+            <column name="artist">Michael Jackson</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Energetic</column>
+            <column name="length">293</column>
+        </table>
+        <table name="song">
+            <column name="id">6</column>
+            <column name="name">Sweet Child O&#039; Mine</column>
+            <column name="artist">Guns N&#039; Roses</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Energetic</column>
+            <column name="length">356</column>
+        </table>
+        <table name="song">
+            <column name="id">7</column>
+            <column name="name">Shape of You</column>
+            <column name="artist">Ed Sheeran</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Happy</column>
+            <column name="length">233</column>
+        </table>
+        <table name="song">
+            <column name="id">8</column>
+            <column name="name">Blinding Lights</column>
+            <column name="artist">The Weeknd</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">200</column>
+        </table>
+        <table name="song">
+            <column name="id">9</column>
+            <column name="name">Rolling in the Deep</column>
+            <column name="artist">Adele</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Powerful</column>
+            <column name="length">228</column>
+        </table>
+        <table name="song">
+            <column name="id">10</column>
+            <column name="name">Smells Like Teen Spirit</column>
+            <column name="artist">Nirvana</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Energetic</column>
+            <column name="length">301</column>
+        </table>
+        <table name="song">
+            <column name="id">11</column>
+            <column name="name">Lose Yourself</column>
+            <column name="artist">Eminem</column>
+            <column name="genre">Hip Hop</column>
+            <column name="mood">Motivated</column>
+            <column name="length">326</column>
+        </table>
+        <table name="song">
+            <column name="id">12</column>
+            <column name="name">Someone Like You</column>
+            <column name="artist">Adele</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Sad</column>
+            <column name="length">285</column>
+        </table>
+        <table name="song">
+            <column name="id">13</column>
+            <column name="name">Yesterday</column>
+            <column name="artist">The Beatles</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Nostalgic</column>
+            <column name="length">125</column>
+        </table>
+        <table name="song">
+            <column name="id">14</column>
+            <column name="name">Wonderwall</column>
+            <column name="artist">Oasis</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Melancholic</column>
+            <column name="length">259</column>
+        </table>
+        <table name="song">
+            <column name="id">15</column>
+            <column name="name">Hey Jude</column>
+            <column name="artist">The Beatles</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Uplifting</column>
+            <column name="length">431</column>
+        </table>
+        <table name="song">
+            <column name="id">16</column>
+            <column name="name">Like a Rolling Stone</column>
+            <column name="artist">Bob Dylan</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Poetic</column>
+            <column name="length">373</column>
+        </table>
+        <table name="song">
+            <column name="id">17</column>
+            <column name="name">What&#039;s Going On</column>
+            <column name="artist">Marvin Gaye</column>
+            <column name="genre">Soul</column>
+            <column name="mood">Reflective</column>
+            <column name="length">233</column>
+        </table>
+        <table name="song">
+            <column name="id">18</column>
+            <column name="name">Respect</column>
+            <column name="artist">Aretha Franklin</column>
+            <column name="genre">Soul</column>
+            <column name="mood">Empowering</column>
+            <column name="length">148</column>
+        </table>
+        <table name="song">
+            <column name="id">19</column>
+            <column name="name">Purple Haze</column>
+            <column name="artist">Jimi Hendrix</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Psychedelic</column>
+            <column name="length">170</column>
+        </table>
+        <table name="song">
+            <column name="id">20</column>
+            <column name="name">Let It Be</column>
+            <column name="artist">The Beatles</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Comforting</column>
+            <column name="length">243</column>
+        </table>
+        <table name="song">
+            <column name="id">21</column>
+            <column name="name">Good Vibrations</column>
+            <column name="artist">The Beach Boys</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Happy</column>
+            <column name="length">217</column>
+        </table>
+        <table name="song">
+            <column name="id">22</column>
+            <column name="name">Shake It Off</column>
+            <column name="artist">Taylor Swift</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Fun</column>
+            <column name="length">242</column>
+        </table>
+        <table name="song">
+            <column name="id">23</column>
+            <column name="name">Despacito</column>
+            <column name="artist">Luis Fonsi</column>
+            <column name="genre">Reggaeton</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">229</column>
+        </table>
+        <table name="song">
+            <column name="id">24</column>
+            <column name="name">Uptown Funk</column>
+            <column name="artist">Mark Ronson</column>
+            <column name="genre">Funk</column>
+            <column name="mood">Energetic</column>
+            <column name="length">269</column>
+        </table>
+        <table name="song">
+            <column name="id">25</column>
+            <column name="name">Thinking Out Loud</column>
+            <column name="artist">Ed Sheeran</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Romantic</column>
+            <column name="length">281</column>
+        </table>
+        <table name="song">
+            <column name="id">26</column>
+            <column name="name">Closer</column>
+            <column name="artist">The Chainsmokers</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">244</column>
+        </table>
+        <table name="song">
+            <column name="id">27</column>
+            <column name="name">One Dance</column>
+            <column name="artist">Drake</column>
+            <column name="genre">Hip Hop</column>
+            <column name="mood">Chill</column>
+            <column name="length">173</column>
+        </table>
+        <table name="song">
+            <column name="id">28</column>
+            <column name="name">Cheap Thrills</column>
+            <column name="artist">Sia</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Fun</column>
+            <column name="length">218</column>
+        </table>
+        <table name="song">
+            <column name="id">29</column>
+            <column name="name">Lean On</column>
+            <column name="artist">Major Lazer</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">176</column>
+        </table>
+        <table name="song">
+            <column name="id">30</column>
+            <column name="name">Sunflower</column>
+            <column name="artist">Post Malone</column>
+            <column name="genre">Hip Hop</column>
+            <column name="mood">Chill</column>
+            <column name="length">158</column>
+        </table>
+        <table name="song">
+            <column name="id">31</column>
+            <column name="name">Bad Guy</column>
+            <column name="artist">Billie Eilish</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Quirky</column>
+            <column name="length">194</column>
+        </table>
+        <table name="song">
+            <column name="id">32</column>
+            <column name="name">Old Town Road</column>
+            <column name="artist">Lil Nas X</column>
+            <column name="genre">Country</column>
+            <column name="mood">Fun</column>
+            <column name="length">157</column>
+        </table>
+        <table name="song">
+            <column name="id">33</column>
+            <column name="name">Circles</column>
+            <column name="artist">Post Malone</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">215</column>
+        </table>
+        <table name="song">
+            <column name="id">34</column>
+            <column name="name">Señorita</column>
+            <column name="artist">Shawn Mendes</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Romantic</column>
+            <column name="length">190</column>
+        </table>
+        <table name="song">
+            <column name="id">35</column>
+            <column name="name">Havana</column>
+            <column name="artist">Camila Cabello</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">217</column>
+        </table>
+        <table name="song">
+            <column name="id">36</column>
+            <column name="name">Shallow</column>
+            <column name="artist">Lady Gaga</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Emotional</column>
+            <column name="length">215</column>
+        </table>
+        <table name="song">
+            <column name="id">37</column>
+            <column name="name">Perfect</column>
+            <column name="artist">Ed Sheeran</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Romantic</column>
+            <column name="length">263</column>
+        </table>
+        <table name="song">
+            <column name="id">38</column>
+            <column name="name">Dance Monkey</column>
+            <column name="artist">Tones and I</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">209</column>
+        </table>
+        <table name="song">
+            <column name="id">39</column>
+            <column name="name">ROCKSTAR</column>
+            <column name="artist">DaBaby</column>
+            <column name="genre">Hip Hop</column>
+            <column name="mood">Intense</column>
+            <column name="length">182</column>
+        </table>
+        <table name="song">
+            <column name="id">40</column>
+            <column name="name">Memories</column>
+            <column name="artist">Maroon 5</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Nostalgic</column>
+            <column name="length">189</column>
+        </table>
+        <table name="song">
+            <column name="id">41</column>
+            <column name="name">Don&#039;t Start Now</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">183</column>
+        </table>
+        <table name="song">
+            <column name="id">42</column>
+            <column name="name">7 rings</column>
+            <column name="artist">Ariana Grande</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Confident</column>
+            <column name="length">179</column>
+        </table>
+        <table name="song">
+            <column name="id">43</column>
+            <column name="name">Savage Love</column>
+            <column name="artist">Jawsh 685</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Catchy</column>
+            <column name="length">171</column>
+        </table>
+        <table name="song">
+            <column name="id">44</column>
+            <column name="name">Say So</column>
+            <column name="artist">Doja Cat</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Catchy</column>
+            <column name="length">237</column>
+        </table>
+        <table name="song">
+            <column name="id">45</column>
+            <column name="name">Adore You</column>
+            <column name="artist">Harry Styles</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Sweet</column>
+            <column name="length">207</column>
+        </table>
+        <table name="song">
+            <column name="id">46</column>
+            <column name="name">Watermelon Sugar</column>
+            <column name="artist">Harry Styles</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Happy</column>
+            <column name="length">174</column>
+        </table>
+        <table name="song">
+            <column name="id">47</column>
+            <column name="name">Bad Romance</column>
+            <column name="artist">Lady Gaga</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Dramatic</column>
+            <column name="length">295</column>
+        </table>
+        <table name="song">
+            <column name="id">48</column>
+            <column name="name">I Gotta Feeling</column>
+            <column name="artist">The Black Eyed Peas</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Party</column>
+            <column name="length">288</column>
+        </table>
+        <table name="song">
+            <column name="id">49</column>
+            <column name="name">Firework</column>
+            <column name="artist">Katy Perry</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Empowering</column>
+            <column name="length">231</column>
+        </table>
+        <table name="song">
+            <column name="id">50</column>
+            <column name="name">Radioactive</column>
+            <column name="artist">Imagine Dragons</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Intense</column>
+            <column name="length">186</column>
+        </table>
+        <table name="song">
+            <column name="id">51</column>
+            <column name="name">Happy</column>
+            <column name="artist">Pharrell Williams</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Happy</column>
+            <column name="length">233</column>
+        </table>
+        <table name="song">
+            <column name="id">52</column>
+            <column name="name">All of Me</column>
+            <column name="artist">John Legend</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Romantic</column>
+            <column name="length">269</column>
+        </table>
+        <table name="song">
+            <column name="id">53</column>
+            <column name="name">Royals</column>
+            <column name="artist">Lorde</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Cool</column>
+            <column name="length">211</column>
+        </table>
+        <table name="song">
+            <column name="id">54</column>
+            <column name="name">Can&#039;t Stop the Feeling!</column>
+            <column name="artist">Justin Timberlake</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Happy</column>
+            <column name="length">236</column>
+        </table>
+        <table name="song">
+            <column name="id">55</column>
+            <column name="name">Counting Stars</column>
+            <column name="artist">OneRepublic</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">257</column>
+        </table>
+        <table name="song">
+            <column name="id">56</column>
+            <column name="name">Wake Me Up</column>
+            <column name="artist">Avicii</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">245</column>
+        </table>
+        <table name="song">
+            <column name="id">57</column>
+            <column name="name">Sorry</column>
+            <column name="artist">Justin Bieber</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Apologetic</column>
+            <column name="length">200</column>
+        </table>
+        <table name="song">
+            <column name="id">58</column>
+            <column name="name">Attention</column>
+            <column name="artist">Charlie Puth</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Intense</column>
+            <column name="length">211</column>
+        </table>
+        <table name="song">
+            <column name="id">59</column>
+            <column name="name">Thunder</column>
+            <column name="artist">Imagine Dragons</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Energetic</column>
+            <column name="length">191</column>
+        </table>
+        <table name="song">
+            <column name="id">60</column>
+            <column name="name">Stressed Out</column>
+            <column name="artist">Twenty One Pilots</column>
+            <column name="genre">Alternative</column>
+            <column name="mood">Reflective</column>
+            <column name="length">202</column>
+        </table>
+        <table name="song">
+            <column name="id">61</column>
+            <column name="name">Heathens</column>
+            <column name="artist">Twenty One Pilots</column>
+            <column name="genre">Alternative</column>
+            <column name="mood">Dark</column>
+            <column name="length">195</column>
+        </table>
+        <table name="song">
+            <column name="id">62</column>
+            <column name="name">Believer</column>
+            <column name="artist">Imagine Dragons</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Motivated</column>
+            <column name="length">204</column>
+        </table>
+        <table name="song">
+            <column name="id">63</column>
+            <column name="name">Rockstar</column>
+            <column name="artist">Post Malone</column>
+            <column name="genre">Hip Hop</column>
+            <column name="mood">Intense</column>
+            <column name="length">218</column>
+        </table>
+        <table name="song">
+            <column name="id">64</column>
+            <column name="name">Lucid Dreams</column>
+            <column name="artist">Juice WRLD</column>
+            <column name="genre">Hip Hop</column>
+            <column name="mood">Melancholic</column>
+            <column name="length">239</column>
+        </table>
+        <table name="song">
+            <column name="id">65</column>
+            <column name="name">Happier</column>
+            <column name="artist">Marshmello</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">214</column>
+        </table>
+        <table name="song">
+            <column name="id">66</column>
+            <column name="name">Truth Hurts</column>
+            <column name="artist">Lizzo</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Confident</column>
+            <column name="length">173</column>
+        </table>
+        <table name="song">
+            <column name="id">67</column>
+            <column name="name">Sucker</column>
+            <column name="artist">Jonas Brothers</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Fun</column>
+            <column name="length">181</column>
+        </table>
+        <table name="song">
+            <column name="id">68</column>
+            <column name="name">Without Me</column>
+            <column name="artist">Halsey</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Emotional</column>
+            <column name="length">201</column>
+        </table>
+        <table name="song">
+            <column name="id">69</column>
+            <column name="name">Thank U, Next</column>
+            <column name="artist">Ariana Grande</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">207</column>
+        </table>
+        <table name="song">
+            <column name="id">70</column>
+            <column name="name">High Hopes</column>
+            <column name="artist">Panic! At The Disco</column>
+            <column name="genre">Rock</column>
+            <column name="mood">Uplifting</column>
+            <column name="length">191</column>
+        </table>
+        <table name="song">
+            <column name="id">71</column>
+            <column name="name">Me!</column>
+            <column name="artist">Taylor Swift</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Fun</column>
+            <column name="length">193</column>
+        </table>
+        <table name="song">
+            <column name="id">72</column>
+            <column name="name">Intentions</column>
+            <column name="artist">Justin Bieber</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Sweet</column>
+            <column name="length">215</column>
+        </table>
+        <table name="song">
+            <column name="id">73</column>
+            <column name="name">Yummy</column>
+            <column name="artist">Justin Bieber</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Playful</column>
+            <column name="length">210</column>
+        </table>
+        <table name="song">
+            <column name="id">74</column>
+            <column name="name">Say My Name</column>
+            <column name="artist">David Guetta</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Energetic</column>
+            <column name="length">205</column>
+        </table>
+        <table name="song">
+            <column name="id">75</column>
+            <column name="name">Happier</column>
+            <column name="artist">Bastille</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">214</column>
+        </table>
+        <table name="song">
+            <column name="id">76</column>
+            <column name="name">Memories</column>
+            <column name="artist">David Guetta</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Nostalgic</column>
+            <column name="length">207</column>
+        </table>
+        <table name="song">
+            <column name="id">77</column>
+            <column name="name">Titanium</column>
+            <column name="artist">David Guetta</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Empowering</column>
+            <column name="length">245</column>
+        </table>
+        <table name="song">
+            <column name="id">78</column>
+            <column name="name">Without You</column>
+            <column name="artist">David Guetta</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Reflective</column>
+            <column name="length">221</column>
+        </table>
+        <table name="song">
+            <column name="id">79</column>
+            <column name="name">Scared to Be Lonely</column>
+            <column name="artist">Martin Garrix</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Reflective</column>
+            <column name="length">218</column>
+        </table>
+        <table name="song">
+            <column name="id">80</column>
+            <column name="name">In the Name of Love</column>
+            <column name="artist">Martin Garrix</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Romantic</column>
+            <column name="length">217</column>
+        </table>
+        <table name="song">
+            <column name="id">81</column>
+            <column name="name">Ocean Eyes</column>
+            <column name="artist">Billie Eilish</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Dreamy</column>
+            <column name="length">194</column>
+        </table>
+        <table name="song">
+            <column name="id">82</column>
+            <column name="name">Bad Liar</column>
+            <column name="artist">Selena Gomez</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Confessional</column>
+            <column name="length">216</column>
+        </table>
+        <table name="song">
+            <column name="id">83</column>
+            <column name="name">Wolves</column>
+            <column name="artist">Selena Gomez</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Emotional</column>
+            <column name="length">197</column>
+        </table>
+        <table name="song">
+            <column name="id">84</column>
+            <column name="name">Good for You</column>
+            <column name="artist">Selena Gomez</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Sensual</column>
+            <column name="length">222</column>
+        </table>
+        <table name="song">
+            <column name="id">85</column>
+            <column name="name">Taki Taki</column>
+            <column name="artist">DJ Snake</column>
+            <column name="genre">Reggaeton</column>
+            <column name="mood">Energetic</column>
+            <column name="length">213</column>
+        </table>
+        <table name="song">
+            <column name="id">86</column>
+            <column name="name">Lush Life</column>
+            <column name="artist">Zara Larsson</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Fun</column>
+            <column name="length">214</column>
+        </table>
+        <table name="song">
+            <column name="id">87</column>
+            <column name="name">Ain&#039;t My Fault</column>
+            <column name="artist">Zara Larsson</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Confident</column>
+            <column name="length">213</column>
+        </table>
+        <table name="song">
+            <column name="id">88</column>
+            <column name="name">Symphony</column>
+            <column name="artist">Clean Bandit</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Uplifting</column>
+            <column name="length">223</column>
+        </table>
+        <table name="song">
+            <column name="id">89</column>
+            <column name="name">Rockabye</column>
+            <column name="artist">Clean Bandit</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Empowering</column>
+            <column name="length">252</column>
+        </table>
+        <table name="song">
+            <column name="id">90</column>
+            <column name="name">Rather Be</column>
+            <column name="artist">Clean Bandit</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Happy</column>
+            <column name="length">238</column>
+        </table>
+        <table name="song">
+            <column name="id">91</column>
+            <column name="name">Solo</column>
+            <column name="artist">Clean Bandit</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Catchy</column>
+            <column name="length">213</column>
+        </table>
+        <table name="song">
+            <column name="id">92</column>
+            <column name="name">Solo Dance</column>
+            <column name="artist">Martin Jensen</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">162</column>
+        </table>
+        <table name="song">
+            <column name="id">93</column>
+            <column name="name">Don&#039;t Let Me Down</column>
+            <column name="artist">The Chainsmokers</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Intense</column>
+            <column name="length">208</column>
+        </table>
+        <table name="song">
+            <column name="id">94</column>
+            <column name="name">Paris</column>
+            <column name="artist">The Chainsmokers</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Reflective</column>
+            <column name="length">224</column>
+        </table>
+        <table name="song">
+            <column name="id">95</column>
+            <column name="name">Something Just Like This</column>
+            <column name="artist">The Chainsmokers</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Inspirational</column>
+            <column name="length">247</column>
+        </table>
+        <table name="song">
+            <column name="id">96</column>
+            <column name="name">Closer</column>
+            <column name="artist">The Chainsmokers</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">244</column>
+        </table>
+        <table name="song">
+            <column name="id">97</column>
+            <column name="name">Save Your Tears</column>
+            <column name="artist">The Weeknd</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">215</column>
+        </table>
+        <table name="song">
+            <column name="id">98</column>
+            <column name="name">In Your Eyes</column>
+            <column name="artist">The Weeknd</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Romantic</column>
+            <column name="length">235</column>
+        </table>
+        <table name="song">
+            <column name="id">99</column>
+            <column name="name">Can&#039;t Feel My Face</column>
+            <column name="artist">The Weeknd</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Energetic</column>
+            <column name="length">213</column>
+        </table>
+        <table name="song">
+            <column name="id">100</column>
+            <column name="name">Starboy</column>
+            <column name="artist">The Weeknd</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Cool</column>
+            <column name="length">230</column>
+        </table>
+        <table name="song">
+            <column name="id">101</column>
+            <column name="name">Call Out My Name</column>
+            <column name="artist">The Weeknd</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Emotional</column>
+            <column name="length">228</column>
+        </table>
+        <table name="song">
+            <column name="id">102</column>
+            <column name="name">Wrecking Ball</column>
+            <column name="artist">Miley Cyrus</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Emotional</column>
+            <column name="length">223</column>
+        </table>
+        <table name="song">
+            <column name="id">103</column>
+            <column name="name">Party in the U.S.A.</column>
+            <column name="artist">Miley Cyrus</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Fun</column>
+            <column name="length">200</column>
+        </table>
+        <table name="song">
+            <column name="id">104</column>
+            <column name="name">Malibu</column>
+            <column name="artist">Miley Cyrus</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Happy</column>
+            <column name="length">231</column>
+        </table>
+        <table name="song">
+            <column name="id">105</column>
+            <column name="name">Slide Away</column>
+            <column name="artist">Miley Cyrus</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">234</column>
+        </table>
+        <table name="song">
+            <column name="id">106</column>
+            <column name="name">We Can&#039;t Stop</column>
+            <column name="artist">Miley Cyrus</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Rebellious</column>
+            <column name="length">202</column>
+        </table>
+        <table name="song">
+            <column name="id">107</column>
+            <column name="name">Midnight Sky</column>
+            <column name="artist">Miley Cyrus</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Empowering</column>
+            <column name="length">211</column>
+        </table>
+        <table name="song">
+            <column name="id">108</column>
+            <column name="name">Adore You</column>
+            <column name="artist">Miley Cyrus</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Romantic</column>
+            <column name="length">252</column>
+        </table>
+        <table name="song">
+            <column name="id">109</column>
+            <column name="name">Nothing Breaks Like a Heart</column>
+            <column name="artist">Mark Ronson</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Sad</column>
+            <column name="length">229</column>
+        </table>
+        <table name="song">
+            <column name="id">110</column>
+            <column name="name">Uptown Funk</column>
+            <column name="artist">Mark Ronson</column>
+            <column name="genre">Funk</column>
+            <column name="mood">Energetic</column>
+            <column name="length">269</column>
+        </table>
+        <table name="song">
+            <column name="id">111</column>
+            <column name="name">Electricity</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Energetic</column>
+            <column name="length">237</column>
+        </table>
+        <table name="song">
+            <column name="id">112</column>
+            <column name="name">New Rules</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Confident</column>
+            <column name="length">209</column>
+        </table>
+        <table name="song">
+            <column name="id">113</column>
+            <column name="name">Break My Heart</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">223</column>
+        </table>
+        <table name="song">
+            <column name="id">114</column>
+            <column name="name">IDGAF</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Confident</column>
+            <column name="length">217</column>
+        </table>
+        <table name="song">
+            <column name="id">115</column>
+            <column name="name">Be the One</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Romantic</column>
+            <column name="length">202</column>
+        </table>
+        <table name="song">
+            <column name="id">116</column>
+            <column name="name">Hotter Than Hell</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Fiery</column>
+            <column name="length">233</column>
+        </table>
+        <table name="song">
+            <column name="id">117</column>
+            <column name="name">Scared to Be Lonely</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">218</column>
+        </table>
+        <table name="song">
+            <column name="id">118</column>
+            <column name="name">Don&#039;t Start Now</column>
+            <column name="artist">Dua Lipa</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">183</column>
+        </table>
+        <table name="song">
+            <column name="id">119</column>
+            <column name="name">One Kiss</column>
+            <column name="artist">Calvin Harris</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">214</column>
+        </table>
+        <table name="song">
+            <column name="id">120</column>
+            <column name="name">Giant</column>
+            <column name="artist">Calvin Harris</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Uplifting</column>
+            <column name="length">221</column>
+        </table>
+        <table name="song">
+            <column name="id">121</column>
+            <column name="name">Promises</column>
+            <column name="artist">Calvin Harris</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Romantic</column>
+            <column name="length">214</column>
+        </table>
+        <table name="song">
+            <column name="id">122</column>
+            <column name="name">Outside</column>
+            <column name="artist">Calvin Harris</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">221</column>
+        </table>
+        <table name="song">
+            <column name="id">123</column>
+            <column name="name">How Deep Is Your Love</column>
+            <column name="artist">Calvin Harris</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Romantic</column>
+            <column name="length">230</column>
+        </table>
+        <table name="song">
+            <column name="id">124</column>
+            <column name="name">Summer</column>
+            <column name="artist">Calvin Harris</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Upbeat</column>
+            <column name="length">232</column>
+        </table>
+        <table name="song">
+            <column name="id">125</column>
+            <column name="name">Blame</column>
+            <column name="artist">Calvin Harris</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Reflective</column>
+            <column name="length">213</column>
+        </table>
+        <table name="song">
+            <column name="id">126</column>
+            <column name="name">My Way</column>
+            <column name="artist">Calvin Harris</column>
+            <column name="genre">EDM</column>
+            <column name="mood">Confident</column>
+            <column name="length">225</column>
+        </table>
+        <table name="song">
+            <column name="id">127</column>
+            <column name="name">You&#039;ve Got the Love</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Uplifting</column>
+            <column name="length">175</column>
+        </table>
+        <table name="song">
+            <column name="id">128</column>
+            <column name="name">Dog Days Are Over</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Uplifting</column>
+            <column name="length">252</column>
+        </table>
+        <table name="song">
+            <column name="id">129</column>
+            <column name="name">Shake It Out</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Empowering</column>
+            <column name="length">257</column>
+        </table>
+        <table name="song">
+            <column name="id">130</column>
+            <column name="name">Spectrum</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Energetic</column>
+            <column name="length">237</column>
+        </table>
+        <table name="song">
+            <column name="id">131</column>
+            <column name="name">What the Water Gave Me</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">311</column>
+        </table>
+        <table name="song">
+            <column name="id">132</column>
+            <column name="name">Hunger</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">227</column>
+        </table>
+        <table name="song">
+            <column name="id">133</column>
+            <column name="name">Sky Full of Song</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Dreamy</column>
+            <column name="length">212</column>
+        </table>
+        <table name="song">
+            <column name="id">134</column>
+            <column name="name">Big God</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Dramatic</column>
+            <column name="length">294</column>
+        </table>
+        <table name="song">
+            <column name="id">135</column>
+            <column name="name">Shake It Out</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Empowering</column>
+            <column name="length">257</column>
+        </table>
+        <table name="song">
+            <column name="id">136</column>
+            <column name="name">Spectrum</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Energetic</column>
+            <column name="length">237</column>
+        </table>
+        <table name="song">
+            <column name="id">137</column>
+            <column name="name">Rabbit Heart (Raise It Up)</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Uplifting</column>
+            <column name="length">214</column>
+        </table>
+        <table name="song">
+            <column name="id">138</column>
+            <column name="name">Drumming Song</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Energetic</column>
+            <column name="length">217</column>
+        </table>
+        <table name="song">
+            <column name="id">139</column>
+            <column name="name">No Light, No Light</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Dramatic</column>
+            <column name="length">250</column>
+        </table>
+        <table name="song">
+            <column name="id">140</column>
+            <column name="name">Delilah</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Dramatic</column>
+            <column name="length">299</column>
+        </table>
+        <table name="song">
+            <column name="id">141</column>
+            <column name="name">Third Eye</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Empowering</column>
+            <column name="length">236</column>
+        </table>
+        <table name="song">
+            <column name="id">142</column>
+            <column name="name">The End of Love</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Emotional</column>
+            <column name="length">290</column>
+        </table>
+        <table name="song">
+            <column name="id">143</column>
+            <column name="name">What Kind of Man</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Intense</column>
+            <column name="length">237</column>
+        </table>
+        <table name="song">
+            <column name="id">144</column>
+            <column name="name">Ship to Wreck</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">224</column>
+        </table>
+        <table name="song">
+            <column name="id">145</column>
+            <column name="name">How Big, How Blue, How Beautiful</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Dreamy</column>
+            <column name="length">305</column>
+        </table>
+        <table name="song">
+            <column name="id">146</column>
+            <column name="name">Queen of Peace</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Epic</column>
+            <column name="length">308</column>
+        </table>
+        <table name="song">
+            <column name="id">147</column>
+            <column name="name">Various Storms &amp; Saints</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">274</column>
+        </table>
+        <table name="song">
+            <column name="id">148</column>
+            <column name="name">Long &amp; Lost</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Melancholic</column>
+            <column name="length">220</column>
+        </table>
+        <table name="song">
+            <column name="id">149</column>
+            <column name="name">Caught</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Reflective</column>
+            <column name="length">279</column>
+        </table>
+        <table name="song">
+            <column name="id">150</column>
+            <column name="name">Mother</column>
+            <column name="artist">Florence + The Machine</column>
+            <column name="genre">Pop</column>
+            <column name="mood">Dramatic</column>
+            <column name="length">323</column>
+        </table>
+        <!-- Tabelle user -->
+        <table name="user">
+            <column name="id">1</column>
+            <column name="username">John</column>
+            <column name="email">john@doe.us</column>
+        </table>
+    </database>
+</pma_xml_export>
