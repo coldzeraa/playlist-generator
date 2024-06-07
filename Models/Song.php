@@ -1,7 +1,7 @@
 <?php
-class _Song extends Models_Base {
+class Models_Song extends Models_Base {
     public function findAll(): array{
-        $statement = "SELECT * FROM songs;";
+        $statement = "SELECT * FROM song;";
 
         $statement = $this->connection->query($statement);
 
@@ -11,7 +11,7 @@ class _Song extends Models_Base {
     }
 
     public function findById(int $id): Domains_Song{
-        $query = "SELECT * FROM songs WHERE id = :id;";
+        $query = "SELECT * FROM song WHERE id = :id;";
         $statement = $this->connection->prepare($query);
         $statement->execute([":id" => $id]);
         $data = $statement->fetch(PDO::FETCH_ASSOC);
@@ -23,7 +23,7 @@ class _Song extends Models_Base {
     }
 
     public function insert(Domains_Song $obj){
-        $query = "INSERT INTO songs (name, artist, genre, mood, length)
+        $query = "INSERT INTO song (name, artist, genre, mood, length)
                   VALUES (:name, :artist, :genre, :mood, :length);";
         $statement = $this->connection->prepare($query);
         $statement->execute([
@@ -38,7 +38,7 @@ class _Song extends Models_Base {
     }
 
     public function update(Domains_Song $obj){
-        $query = "UPDATE songs SET name=:name, artist=:artist, genre=:genre, 
+        $query = "UPDATE song SET name=:name, artist=:artist, genre=:genre, 
                        mood=:mood, length=:length 
                    WHERE id=:id;";
         $statement = $this->connection->prepare($query);
@@ -54,7 +54,7 @@ class _Song extends Models_Base {
     }
 
     public function delete($id) {
-        $query = "DELETE FROM songs WHERE id = :id;";
+        $query = "DELETE FROM song WHERE id = :id;";
         $statement = $this->connection->prepare($query);
         $statement->execute([":id" => $id]);
     }

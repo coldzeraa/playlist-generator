@@ -1,7 +1,7 @@
 <?php
 class Models_Playlist extends Models_Base {
     public function findAll(): array{
-        $statement = "SELECT * FROM playlists;";
+        $statement = "SELECT * FROM playlist;";
 
         $statement = $this->connection->query($statement);
 
@@ -11,7 +11,7 @@ class Models_Playlist extends Models_Base {
     }
 
     public function findById(int $id): Domains_Playlist{
-        $query = "SELECT * FROM playlists WHERE id = :id;";
+        $query = "SELECT * FROM playlist WHERE id = :id;";
         $statement = $this->connection->prepare($query);
         $statement->execute([":id" => $id]);
         $data = $statement->fetch(PDO::FETCH_ASSOC);
@@ -23,7 +23,7 @@ class Models_Playlist extends Models_Base {
     }
 
     public function insert(Domains_Playlist $obj){
-        $query = "INSERT INTO playlists (name, description, created_at)
+        $query = "INSERT INTO playlist (name, description, created_at)
                   VALUES (:name, :description, :created_at);";
         $statement = $this->connection->prepare($query);
         $statement->execute([
@@ -36,7 +36,7 @@ class Models_Playlist extends Models_Base {
     }
 
     public function update(Domains_Playlist $obj){
-        $query = "UPDATE playlists SET name=:name, description=:description, created_at=:created_at 
+        $query = "UPDATE playlist SET name=:name, description=:description, created_at=:created_at 
                    WHERE id=:id;";
         $statement = $this->connection->prepare($query);
         $statement->execute([
@@ -49,7 +49,7 @@ class Models_Playlist extends Models_Base {
     }
 
     public function delete($id) {
-        $query = "DELETE FROM playlists WHERE id = :id;";
+        $query = "DELETE FROM playlist WHERE id = :id;";
         $statement = $this->connection->prepare($query);
         $statement->execute([":id" => $id]);
     }
