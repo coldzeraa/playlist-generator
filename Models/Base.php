@@ -5,7 +5,7 @@ abstract class Models_Base {
 
     public function __construct() {
         $host = "127.0.0.1";
-        $dbname = "musicgernatordb";
+        $dbname = "musicgeneratordb";
         $username = "root";
         $password = "";
         $this->connection = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
