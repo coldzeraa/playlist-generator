@@ -1,16 +1,18 @@
 <?php
 class Models_Song extends Models_Base {
-    public function findAll(): array{
+    public function getConnection() {
+        return $this->connection;
+    }
+
+    public function findAll(): array {
         $statement = "SELECT * FROM song;";
-
         $statement = $this->connection->query($statement);
-
         return array_map(function ($data) {
             return new Domains_Song($data);
         }, $statement->fetchAll(PDO::FETCH_ASSOC));
     }
 
-    public function findById(int $id): Domains_Song{
+    public function findById(int $id): Domains_Song {
         $query = "SELECT * FROM song WHERE id = :id;";
         $statement = $this->connection->prepare($query);
         $statement->execute([":id" => $id]);
@@ -22,9 +24,8 @@ class Models_Song extends Models_Base {
         }
     }
 
-    public function insert(Domains_Song $obj){
-        $query = "INSERT INTO song (name, artist, genre, mood, length)
-                  VALUES (:name, :artist, :genre, :mood, :length);";
+    public function insert(Domains_Song $obj) {
+        $query = "INSERT INTO song (name, artist, genre, mood, length) VALUES (:name, :artist, :genre, :mood, :length);";
         $statement = $this->connection->prepare($query);
         $statement->execute([
             ":name" => $obj->name,
@@ -37,10 +38,8 @@ class Models_Song extends Models_Base {
         return $this->findById($lastId);
     }
 
-    public function update(Domains_Song $obj){
-        $query = "UPDATE song SET name=:name, artist=:artist, genre=:genre, 
-                       mood=:mood, length=:length 
-                   WHERE id=:id;";
+    public function update(Domains_Song $obj) {
+        $query = "UPDATE song SET name=:name, artist=:artist, genre=:genre, mood=:mood, length=:length WHERE id=:id;";
         $statement = $this->connection->prepare($query);
         $statement->execute([
             ":name" => $obj->name,
@@ -59,3 +58,4 @@ class Models_Song extends Models_Base {
         $statement->execute([":id" => $id]);
     }
 }
+

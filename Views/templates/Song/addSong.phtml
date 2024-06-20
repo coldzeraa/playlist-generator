@@ -1,0 +1,83 @@
+<?php
+// Include necessary files
+require_once 'Models/Base.php';
+require_once 'Models/Song.php';
+require_once 'Domains/Song.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'];
+    $artist = $_POST['artist'];
+    $genre = $_POST['genre'];
+    $mood = $_POST['mood'];
+    $length = $_POST['length'];
+
+    try {
+        $songModel = new Models_Song();
+        $song = new Domains_Song([
+            'id' => 0, // ID will be auto-incremented
+            'name' => $name,
+            'artist' => $artist,
+            'genre' => $genre,
+            'mood' => $mood,
+            'length' => $length
+        ]);
+        $songModel->insert($song);
+        echo "Song erfolgreich hinzugefügt!";
+    } catch (PDOException $e) {
+        echo "Fehler beim Hinzufügen des Songs: " . $e->getMessage();
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song hinzufügen und filtern</title>
+</head>
+<body>
+<h1>Song hinzufügen</h1>
+<form method="post" action="/song">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name">
+
+    <label for="artist">Artist:</label>
+    <input type="text" name="artist" id="artist">
+
+    <label for="genre">Genre:</label>
+    <input type="text" name="genre" id="genre">
+
+    <label for="mood">Mood:</label>
+    <input type="text" name="mood" id="mood">
+
+    <label for="length">Length (seconds):</label>
+    <input type="number" name="length" id="length">
+
+    <button type="submit">Song hinzufügen</button>
+</form>
+
+<h1>Songs filtern</h1>
+<form method="post" action="/song">
+    <label for="filter-artist">Artist:</label>
+    <input type="text" name="artist" id="filter-artist">
+
+    <label for="filter-genre">Genre:</label>
+    <input type="text" name="genre" id="filter-genre">
+
+    <label for="filter-mood">Mood:</label>
+    <input type="text" name="mood" id="filter-mood">
+
+    <button type="submit">Filtern</button>
+</form>
+
+<?php if (isset($songs)): ?>
+    <h2>Gefilterte Songs</h2>
+    <ul>
+        <?php foreach ($songs as $song): ?>
+            <li><?php echo htmlspecialchars($song['name'] . ' - ' . $song['artist'] . ' (' . $song['genre'] . ', ' . $song['mood'] . ', ' . $song['length'] . 's)'); ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+</body>
+</html>
