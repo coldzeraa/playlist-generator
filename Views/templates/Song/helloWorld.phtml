@@ -1,0 +1,111 @@
+<?php
+// Include necessary files
+require_once 'Models/Base.php';
+require_once 'Models/Song.php';
+require_once 'Domains/Song.php';
+
+$songs = [];
+$moods = [];
+$artists = [];
+$genres = [];
+
+try {
+    // Instantiate the Songs model
+    $songModel = new Models_Song();
+
+    // Fetch all songs for the dropdown menus
+    $songs = $songModel->findAll();
+
+    // Fetch distinct moods, artists, and genres for the dropdowns
+    foreach ($songs as $song) {
+        if (!in_array($song->mood, $moods)) {
+            $moods[] = $song->mood;
+        }
+        if (!in_array($song->artist, $artists)) {
+            $artists[] = $song->artist;
+        }
+        if (!in_array($song->genre, $genres)) {
+            $genres[] = $song->genre;
+        }
+    }
+
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $selectedMood = $_POST['mood'];
+        $selectedArtist = $_POST['artist'];
+        $selectedGenre = $_POST['genre'];
+
+        // Filter songs based on the selected criteria
+        $filteredSongs = array_filter($songs, function($song) use ($selectedMood, $selectedArtist, $selectedGenre) {
+            return ($song->mood == $selectedMood || $selectedMood == "") &&
+                ($song->artist == $selectedArtist || $selectedArtist == "") &&
+                ($song->genre == $selectedGenre || $selectedGenre == "");
+        });
+    }
+
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+<body>
+<h1>Hallo aus helloWorld</h1>
+<form method="post">
+    <label for="mood">Mood:</label>
+    <select name="mood" id="mood">
+        <option value="">--Select Mood--</option>
+        <?php foreach ($moods as $mood): ?>
+            <option value="<?= htmlspecialchars($mood) ?>"><?= htmlspecialchars($mood) ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <label for="artist">Artist:</label>
+    <select name="artist" id="artist">
+        <option value="">--Select Artist--</option>
+        <?php foreach ($artists as $artist): ?>
+            <option value="<?= htmlspecialchars($artist) ?>"><?= htmlspecialchars($artist) ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <label for="genre">Genre:</label>
+    <select name="genre" id="genre">
+        <option value="">--Select Genre--</option>
+        <?php foreach ($genres as $genre): ?>
+            <option value="<?= htmlspecialchars($genre) ?>"><?= htmlspecialchars($genre) ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <button type="submit">Passende Songs anzeigen</button>
+</form>
+
+<?php if (isset($filteredSongs)): ?>
+    <h2>Gefilterte Songs</h2>
+    <?php if (count($filteredSongs) > 0): ?>
+        <ul>
+            <?php foreach ($filteredSongs as $song): ?>
+                <li>
+                    <strong>Song Name:</strong> <?= htmlspecialchars($song->name) ?> <br>
+                    <strong>Artist:</strong> <?= htmlspecialchars($song->artist) ?> <br>
+                    <strong>Genre:</strong> <?= htmlspecialchars($song->genre) ?> <br>
+                    <strong>Mood:</strong> <?= htmlspecialchars($song->mood) ?> <br>
+                    <strong>Length:</strong> <?= htmlspecialchars($song->length) ?> seconds <br>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>Keine passenden Songs gefunden.</p>
+    <?php endif; ?>
+<?php endif; ?>
+
+<form method="post" action="addSong.phtml">
+    <button type="submit">Song hinzufügen</button>
+</form>
+</body>
+</html>
