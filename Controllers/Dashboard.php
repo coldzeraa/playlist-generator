@@ -17,9 +17,10 @@ class Controllers_Dashboard extends Controllers_Base
 
     public function post()
     {
+        echo ("POST");
+        $obj = new Domains_User($_POST);
+        $data = $this->model->insert($obj);
 
-        $data = array();
-
-        $this->view->render($data);
+        $this->view->render(null);
     }
 }
