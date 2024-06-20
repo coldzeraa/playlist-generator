@@ -7,6 +7,7 @@
                 <th>Name</th>
                 <th>Artist</th>
                 <th>Mood</th>
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
@@ -17,8 +18,8 @@
                 <td><?=$obj->name?></td>
                 <td><?=$obj->artist?></td>
                 <td><?=$obj->mood?></td>
-               <!--<td><a href="./FreezerItem/<?=$obj->id?>" class="link-primary">Details</a></td>
-                <td><button onclick="delete_freezer(<?=$obj->id?>)" class="btn btn-danger">Delete</button></td> -->
+               <td><a href="./Song/<?=$obj->id?>" class="link-primary">Details</a></td>
+                <!--<td><button onclick="delete_freezer(<?=$obj->id?>)" class="btn btn-danger">Delete</button></td> -->
 
             </tr>
         <?php

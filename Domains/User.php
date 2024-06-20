@@ -1,6 +1,6 @@
 <?php
 
-class Models_User extends Domains_Base
+class Domains_User extends Domains_Base
 {
     public function __construct($data)
     {
