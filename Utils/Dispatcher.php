@@ -1,11 +1,20 @@
 <?php
 
-class Utils_Dispatcher{
+class Utils_Dispatcher
+{
 
-    public static function dispatch(){
-        $url_elements = explode("/", $_SERVER["PATH_INFO"]);
-        $resource_type = $url_elements[1];
-        $path_params = array_slice($url_elements, 2);
+    private const DASHBOARD = "Dashboard";
+
+    public static function dispatch()
+    {
+        if (isset($_SERVER["PATH_INFO"])) {
+            $url_elements = explode("/", $_SERVER["PATH_INFO"]);
+            $resource_type = $url_elements[1];
+            $path_params = array_slice($url_elements, 2);
+        } else {
+            $resource_type = self::DASHBOARD;
+            $path_params = array();
+        }
 
         $view_type = "Views_Html";
         $view = new $view_type($resource_type, $path_params);
@@ -16,5 +25,4 @@ class Utils_Dispatcher{
 
         $controller->$verb();
     }
-
 }
