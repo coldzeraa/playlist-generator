@@ -2,61 +2,56 @@
 <?php /** @var Domains_Base $data */ ?>
 <?php if ($data) { ?>
 
-    <form>
-        </div>
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" id="name" class="form-control"
-                   value="<?=$data->name?>">
-        </div>
-        <div class="form-group">
-            <label>Artist</label>
-            <input type="text" id="artist" class="form-control"
-                   value="<?=$data->artist?>">
-        </div>
-        <div class="form-group">
-            <label>Mood</label>
-            <input type="text" id="mood" class="form-control"
-                   value="<?=$data->mood?>">
-        </div>
-        <div class="form-group">
-            <label>genre</label>
-            <input type="text" id="genre" class="form-control"
-                   value="<?=$data->exp?>">
-        </div>
-    </form>
-    <!-- <button onclick="update_item()" class="btn btn-warning">Update</button>
-    <button onclick="get_json()" class="btn-primary">Get JSON</button> -->
-
-    <div id="json-representation"></div>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .form-group {
+                margin: 10px 0;
+            }
+            .form-control-plaintext {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #f9f9f9;
+            }
+        </style>
+        <title>Details of <?=$data->$name?></title>
+    </head>
+    <body>
+        <form>
+            <div class="form-group">
+                <label><b>Name</b></label>
+                <input type="text" id="name" class="form-control-plaintext" readonly
+                    value="<?=$data->name?>">
+            </div>
+            <div class="form-group">
+                <label><b>Artist</b></label>
+                <input type="text" id="artist" class="form-control-plaintext" readonly
+                    value="<?=$data->artist?>">
+            </div>
+            <div class="form-group">
+                <label><b>Mood</b></label>
+                <input type="text" id="mood" class="form-control-plaintext" readonly
+                    value="<?=$data->mood?>">
+            </div>
+            <div class="form-group">
+                <label><b>Genre</b></label>
+                <input type="text" id="genre" class="form-control-plaintext" readonly
+                    value="<?=$data->genre?>">
+            </div>
+            <div class="form-group">
+                <label><b>Length</b></label>
+                <input type="text" id="length" class="form-control-plaintext" readonly
+                    value="<?=$data->length?>">
+            </div>
+        </form>
+    </body>
+    </html>
 
 <?php } else { ?>
     <div>No data found.</div>
 <?php } ?>
-
-<!-- <script>
-    function update_item() {
-        const id = document.getElementById("entry_id").value;
-        const name = document.getElementById("name").value;
-        const entry = document.getElementById("entry").value;
-        const description = document.getElementById("description").value;
-        const exp = document.getElementById("exp").value;
-        fetch(window.location, {
-            method: "PUT",
-            body: "id= " + id + "&name= " + name + "&entry= " + entry
-                + "&description= " + description + "&exp= " + exp
-        }).then(response => alert("Updated!"))
-    }
-
-    function get_json() {
-        const element = document.getElementById("json-representation");
-        fetch(window.location, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json"
-            }
-        }).then(response => response.json().then(j =>element.innerHTML = JSON.stringify(j)))
-    }
-</script> -->
 
 <?php include __DIR__."/../_footer.phtml"; ?>
