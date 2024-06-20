@@ -22,7 +22,7 @@ class Models_User extends Models_Base
         if ($data) {
             return new Domains_User($data);
         } else {
-            throw new Exceptions_NotFound();
+            throw new Exception();
         }
     }
 
