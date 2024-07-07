@@ -9,6 +9,7 @@ class Controllers_Song extends Controllers_Base{
     }
 
     public function get() {
+        echo("GET-Controllers_Song");
         if ($this->params) {
             $data = $this->model->findById($this->params[0]);
         } else {
