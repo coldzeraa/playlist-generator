@@ -11,14 +11,13 @@ class Controllers_Dashboard extends Controllers_Base
     }
 
     public function get()
-    {   
-        echo("GET - Controllers_Dashboard");
         $this->view->render(null);
     }
 
     public function post()
     {
         echo ("POST - Controllers_Dashboard");
+
         $obj = new Domains_User($_POST);
         $data = $this->model->insert($obj);
 
