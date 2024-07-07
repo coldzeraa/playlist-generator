@@ -10,7 +10,7 @@ class Controllers_Dashboard extends Controllers_Base
         $this->model = new Models_User();
     }
 
-    public function get()
+    public function get(){
         $this->view->render(null);
     }
 
