@@ -1,167 +1,208 @@
 <?php include __DIR__ . "/../_header.phtml"; ?>
 <?php /** @var Domains_Base $data */ ?>
 <?php { ?>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-Ksvl7lm6m3svghZvA0QyHR5z5Oguwwc0Rb9D6tK2wNkfnKzZT+SUl6KXNC43Bkeq" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha384-QdH9ULa7pKOXAsIu3vq8BpA5SuMNF5hvZK4GpF7+Ofwm5t2eoUE2QQjmP9E0CdzN" crossorigin="anonymous"></script>
-    <style>
-        .dashboard-section {
-            margin-top: 20px;
-        }
-        .dashboard-title {
-            margin-bottom: 10px;
-        }
-        .card {
-            margin-bottom: 20px;
-        }
-        .navbar-brand {
-            font-weight: bold;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-Ksvl7lm6m3svghZvA0QyHR5z5Oguwwc0Rb9D6tK2wNkfnKzZT+SUl6KXNC43Bkeq" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha384-QdH9ULa7pKOXAsIu3vq8BpA5SuMNF5hvZK4GpF7+Ofwm5t2eoUE2QQjmP9E0CdzN" crossorigin="anonymous"></script>
+        <style>
+            .dashboard-section {
+                margin-top: 20px;
+            }
 
-<body>
-    <div class="container-fluid p-3 bg-primary text-white text-center rounded">
-        <h3>Playlist Generator</h3>
-        <p>Derntl, Pletz, Pointner</p> 
-    </div>
+            .dashboard-title {
+                margin-bottom: 10px;
+            }
 
-    <div class="container">
-        <div class="row dashboard-section">
-            <!-- Show Not Logged In Generate Playlist -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">Generate Playlist</div>
-                    <div class="card-body">
-                        <p>Generate Playlist on:</p>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                                Select Type
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><h5 class="dropdown-header">Mood</h5></li>
-                                <li><a class="dropdown-item" href="#" onclick="generatePlaylist('Mood 1')">Mood 1</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="generatePlaylist('Mood 2')">Mood 2</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="generatePlaylist('Mood 3')">Mood 3</a></li>
-                                <li><h5 class="dropdown-header">Genre</h5></li>
-                                <li><a class="dropdown-item" href="#" onclick="generatePlaylist('Genre 1')">Genre 1</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="generatePlaylist('Genre 2')">Genre 2</a></li>
-                            </ul>
+            .card {
+                margin-bottom: 20px;
+            }
+
+            .navbar-brand {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-fluid p-3 bg-primary text-white text-center rounded">
+            <h3>Playlist Generator</h3>
+            <p>Derntl, Pletz, Pointner</p>
+        </div>
+
+        <div class="container">
+            <div class="row dashboard-section">
+                <!-- Show Not Logged In Generate Playlist -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Generate Playlist</div>
+                        <div class="card-body">
+                            <p>Generate Playlist on:</p>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                    Select Type
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <h5 class="dropdown-header">Mood</h5>
+                                    </li>
+                                    <?php
+                                    foreach ($data["moods"] as $obj) {
+                                    ?>
+                                        <li><a class="dropdown-item" href="#" onclick="generatePlaylist('<?= $obj ?>')"><?= $obj ?></a></li>
+                                    <?php
+                                    }
+                                    ?>
+                                    <li>
+                                        <h5 class="dropdown-header">Genre</h5>
+                                    </li>
+                                    <?php
+                                    foreach ($data["genres"] as $obj) {
+                                    ?>
+                                        <li><a class="dropdown-item" href="#" onclick="generatePlaylist('<?= $obj ?>')"><?= $obj ?></a></li>
+                                    <?php
+                                    }
+                                    ?>
+
+                                </ul>
+                            </div>
+                            <div id="playlist" class="mt-3"></div> <!-- Area to display playlist -->
                         </div>
-                        <div id="playlist" class="mt-3"></div> <!-- Area to display playlist -->
                     </div>
                 </div>
-            </div>
 
-            <!-- Show Not Logged In Top Liked Songs -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">Top Songs</div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">Bohemian Rhapsody - Queen</li>
-                            <li class="list-group-item">Another Song - Artist</li>
-                            <li class="list-group-item">Hit Song - Artist</li>
-                        </ul>
+                <!-- Show Not Logged In Top Liked Songs -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Top Songs</div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Bohemian Rhapsody - Queen</li>
+                                <li class="list-group-item">Another Song - Artist</li>
+                                <li class="list-group-item">Hit Song - Artist</li>
+                            </ul>
+                            <button type="button" class="btn btn-primary" onclick="location.href='/playlist-generator/Song'">View all Songs</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Login Container -->
-            <div class="col-md-4">
-                <div class="card border-primary mb-3">
-                    <div class="card-header text-white bg-primary mb-3">Login</div>
-                    <div class="card-body">
-                        <form onsubmit="event.preventDefault(); getValues();">
-                            <div class="mb-3">
-                                <label for="inputUsername" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="inputUsername">
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="inputPassword" aria-describedby="pwHelp">
-                                <div id="pwHelp" class="form-text">We'll never share your password with anyone else.</div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Login</button>
-                        </form>
+                <!-- Login Container -->
+                <div class="col-md-4">
+                    <div class="card border-primary mb-3">
+                        <div class="card-header text-white bg-primary mb-3">Login</div>
+                        <div class="card-body">
+                            <form onsubmit="event.preventDefault(); getValues();">
+                                <div class="mb-3">
+                                    <label for="inputUsername" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="inputUsername">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="inputPassword" aria-describedby="pwHelp">
+                                    <div id="pwHelp" class="form-text">We'll never share your password with anyone else.</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <script>
-        // Define playlists
-        const playlists = {
-            // TODO: get from backend
-            "Mood 1": ["Happy Song - Artist", "Sad Song - Artist", "Energetic Song - Artist"],
-            "Mood 2": ["Calm Song - Artist", "Reflective Song - Artist", "Chill Song - Artist"],
-            "Mood 3": ["Exciting Song - Artist", "Upbeat Song - Artist", "Motivational Song - Artist"],
-            "Genre 1": ["Rock Song - Artist", "Pop Song - Artist", "Jazz Song - Artist"],
-            "Genre 2": ["Electronic Song - Artist", "Hip Hop Song - Artist", "R&B Song - Artist"]
-        };
+            // Define playlists
+            const playlists = {
+                // TODO: get from backend
+                "Mood 1": ["Happy Song - Artist", "Sad Song - Artist", "Energetic Song - Artist"],
+                "Mood 2": ["Calm Song - Artist", "Reflective Song - Artist", "Chill Song - Artist"],
+                "Mood 3": ["Exciting Song - Artist", "Upbeat Song - Artist", "Motivational Song - Artist"],
+                "Genre 1": ["Rock Song - Artist", "Pop Song - Artist", "Jazz Song - Artist"],
+                "Genre 2": ["Electronic Song - Artist", "Hip Hop Song - Artist", "R&B Song - Artist"]
+            };
 
-        // Function to generate playlist based on type
-        function generatePlaylist(type) {
-            const playlist = playlists[type] || [];
-            displayPlaylist(playlist);
-        }
+            // Function to generate playlist based on type
+            function generatePlaylist(type) {
+                const url = new URL(window.location);
+                url.pathname = '/playlist-generator/';
+                url.searchParams.append('mood', type);
 
-        // Function to display playlist in the HTML
-        function displayPlaylist(playlist) {
-            const playlistContainer = document.getElementById('playlist');
-            playlistContainer.innerHTML = ''; // Clear previous playlist
-
-            if (playlist.length > 0) {
-                const ul = document.createElement('ul');
-                ul.className = 'list-group';
-                playlist.forEach(song => {
-                    const li = document.createElement('li');
-                    li.className = 'list-group-item';
-                    li.textContent = song;
-                    ul.appendChild(li);
+                fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json(); // Parse the JSON from the response
+                    } else {
+                        console.error("GET request failed.");
+                        return null;
+                    }
+                }).then(data => {
+                    if (data) {
+                        console.log("GET request successful.");
+                        const playlist = data.songs || [];
+                        displayPlaylist(playlist); // Display the playlist using the fetched data
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
                 });
-                playlistContainer.appendChild(ul);
-            } else {
-                playlistContainer.textContent = 'No songs available for this type.';
             }
-        }
 
+            // Function to display playlist in the HTML
+            function displayPlaylist(playlist) {
+                const playlistContainer = document.getElementById('playlist');
+                playlistContainer.innerHTML = ''; // Clear previous playlist
 
-        function getValues() {
-            const username = document.getElementById("inputUsername").value;
-            const password = document.getElementById("inputPassword").value;
-            console.log("username: " + username + "\npassword: " + password);
-
-            console.log(window.location);
-
-            fetch(window.location, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: "username=" + username + "&password=" + password
-            }).then(response => {
-                if (response.ok) {
-                    console.log("POST request successful.");
-                    window.location.href = "/playlist-generator/User/";
+                if (playlist.length > 0) {
+                    const ul = document.createElement('ul');
+                    ul.className = 'list-group';
+                    playlist.forEach(song => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.textContent = song[1] + ' - ' + song[2]; // Adjust to the actual structure of the song object
+                        ul.appendChild(li);
+                    });
+                    playlistContainer.appendChild(ul);
                 } else {
-                    console.error("POST request failed.");
+                    playlistContainer.textContent = 'No songs available for this type.';
                 }
-            }).catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
-</body>
+            }
 
-</html>
+
+            function getValues() {
+                const username = document.getElementById("inputUsername").value;
+                const password = document.getElementById("inputPassword").value;
+                console.log("username: " + username + "\npassword: " + password);
+
+                console.log(window.location);
+
+                fetch(window.location, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "username=" + username + "&password=" + password
+                }).then(response => {
+                    if (response.ok) {
+                        console.log("POST request successful.");
+                        window.location.href = "/playlist-generator/User/";
+                    } else {
+                        console.error("POST request failed.");
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        </script>
+    </body>
+
+    </html>
 
 <?php } ?>
 <?php include __DIR__ . "/../_footer.phtml"; ?>

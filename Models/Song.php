@@ -18,8 +18,38 @@ class Models_Song extends Models_Base {
         if($data) {
             return new Domains_Song($data);
         } else {
-            throw new Exceptions_NotFound();
+            error_log("findById failed");
         }
+    }
+
+    public function findByMood(string $mood){
+        $query = "SELECT * FROM song WHERE mood = :mood;";
+        $statement = $this->connection->prepare($query);
+        $statement->execute([":mood" => $mood]);
+        return array_map(function ($data) {
+            return new Domains_Song($data);
+        }, $statement->fetchAll(PDO::FETCH_NUM));
+    }
+
+    public function findByGenre(string $genre){
+        $query = "SELECT * FROM song WHERE genre = :genre;";
+        $statement = $this->connection->prepare($query);
+        $statement->execute([":genre" => $genre]);
+        return array_map(function ($data) {
+            return new Domains_Song($data);
+        }, $statement->fetchAll(PDO::FETCH_NUM));
+    }
+
+    public function findAllMoods(): array{
+        $statement = "SELECT DISTINCT mood FROM song";
+        $statement = $this->connection->query($statement);
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function findAllGenres(): array{
+        $statement = "SELECT DISTINCT genre FROM song";
+        $statement = $this->connection->query($statement);
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
     }
 
     public function insert(Domains_Song $obj){

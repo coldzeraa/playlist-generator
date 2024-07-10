@@ -14,13 +14,8 @@ class Views_Html extends Views_Base
         // Dicide template based on the class that called render()
         switch ($callerClass) {
             case "Controllers_Dashboard":
-                if (isset($data)) {
-                    $template = "dashboardLoggedIn.phtml";
-                    break;
-                } else {
-                    $template = "dashboardNotLoggedIn.phtml";
-                    break;
-                }
+                $template = "dashboardNotLoggedIn.phtml";
+                break;
             case "Controllers_Song":
                 if (is_array($data)) {
                     $template = "table.phtml";
