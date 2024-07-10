@@ -26,16 +26,31 @@ class Models_User extends Models_Base
         }
     }
 
+    public function findByUsername(string $username): Domains_User{
+        $query = "SELECT * FROM user WHERE username = :username;";
+        $statement = $this->connection->prepare($query);
+        $statement->execute([":username" => $username]);
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            return new Domains_User($data);
+        } else {
+            throw new Exception();
+        }
+    }
+
     public function insert(Domains_User $obj)
     {
-        $query = "INSERT INTO user (username, email, password, created_at)
-                  VALUES (:username, :email, :password, :created_at);";
+        // If user is already in database
+        if (in_array($obj, $this->findAll())) { 
+            return $obj;
+        }
+
+        $query = "INSERT INTO user (username, password)
+                  VALUES (:username, :password);";
         $statement = $this->connection->prepare($query);
         $statement->execute([
             ":username" => $obj->username,
-            ":email" => $obj->email,
             ":password" => $obj->password,
-            ":created_at" => $obj->created_at
         ]);
         $lastId = $this->connection->lastInsertId();
         return $this->findById($lastId);
@@ -43,14 +58,12 @@ class Models_User extends Models_Base
 
     public function update(Domains_User $obj)
     {
-        $query = "UPDATE user SET username=:username, email=:email, password=:password, created_at=:created_at 
+        $query = "UPDATE user SET username=:username, password=:password
                    WHERE id=:id;";
         $statement = $this->connection->prepare($query);
         $statement->execute([
             ":username" => $obj->username,
-            ":email" => $obj->email,
             ":password" => $obj->password,
-            ":created_at" => $obj->created_at,
             ":id" => $obj->id
         ]);
         return $this->findById($obj->id);

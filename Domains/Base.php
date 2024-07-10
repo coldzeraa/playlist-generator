@@ -6,7 +6,11 @@ abstract class Domains_Base implements JsonSerializable
 
     public function __construct($data)
     {
-        $this->data = array_merge($this->data, $data);
+        if(is_array($data)){
+            $this->data = array_merge($this->data, $data);
+        }else{
+            $this->data = array();
+        }
     }
 
     public function __get($name)

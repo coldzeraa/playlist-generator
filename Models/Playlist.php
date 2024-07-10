@@ -15,11 +15,16 @@ class Models_Playlist extends Models_Base {
         $statement = $this->connection->prepare($query);
         $statement->execute([":id" => $id]);
         $data = $statement->fetch(PDO::FETCH_ASSOC);
-        if($data) {
+        return new Domains_Playlist($data);
+    }
+
+    public function findByUserID(int $id): array{
+        $query = "SELECT * FROM playlist WHERE userID = :id;";
+        $statement = $this->connection->prepare($query);
+        $statement->execute([":id" => $id]);
+        return array_map(function ($data) {
             return new Domains_Playlist($data);
-        } else {
-            throw new Exceptions_NotFound();
-        }
+        }, $statement->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function insert(Domains_Playlist $obj){

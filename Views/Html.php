@@ -13,15 +13,15 @@ class Views_Html extends Views_Base
 
         // Dicide template based on the class that called render()
         switch ($callerClass) {
-            case ("Controllers_Dashboard"):
-                if (is_array($data)) {
+            case "Controllers_Dashboard":
+                if (isset($data)) {
                     $template = "dashboardLoggedIn.phtml";
                     break;
                 } else {
                     $template = "dashboardNotLoggedIn.phtml";
                     break;
                 }
-            case ("Controllers_Song"):
+            case "Controllers_Song":
                 if (is_array($data)) {
                     $template = "table.phtml";
                     break;
@@ -29,11 +29,26 @@ class Views_Html extends Views_Base
                     $template = "object.phtml";
                     break;
                 }
+            case "Controllers_User":
+                $template = "dashboardLoggedIn.phtml";
+                break;
+            case "Controllers_Playlist":
+                if(is_array($data)) {
+                    $template = "table.phtml";
+                    break;
+                }else{
+                    $template = "object.phtml";
+                    break;
+                }
+            case "Controllers_Generator":
+                $template = "table.phtml";
+                break;
         }
 
         if (is_readable(dirname("__FILE__") . "/templates/") . strtolower($this->resource_name) . "/" . $template) {
             $template = strtolower($this->resource_name) . "/" . $template;
         }
+
         include "templates/" . $template;
         exit;
     }

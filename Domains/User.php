@@ -7,7 +7,7 @@ class Domains_User extends Domains_Base
         $this->data = [
             "id" => null,
             "username" => null,
-            "email" => null,
+            "password" => null,
         ];
         parent::__construct($data);
     }

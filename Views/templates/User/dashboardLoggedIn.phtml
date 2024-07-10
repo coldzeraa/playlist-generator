@@ -1,0 +1,42 @@
+<?php include __DIR__ . "/../_header.phtml"; ?>
+<?php /** @var Domains_User $data */ ?>
+    <?php if ($data) { ?>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Zentriertes Formular</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/playlist-generator"><?=$data->username?></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="/playlist-generator/Generator">Generate Playlist</a>
+                        <a class="nav-link active" aria-disabled="false" href="/playlist-generator/Song">Show Songs</a>
+                        <a class="nav-link active" aria-disabled="false" href="/playlist-generator/Playlist">Show Playlists</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <h1>
+            Hello!
+        </h1>
+
+    </body>
+
+    </html>
+
+<?php } ?>
+
+
+<?php include __DIR__ . "/../_footer.phtml"; ?>

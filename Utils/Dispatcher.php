@@ -1,5 +1,6 @@
 <?php
 
+
 class Utils_Dispatcher
 {
 
@@ -22,6 +23,10 @@ class Utils_Dispatcher
         $controller_name = "Controllers_" . $resource_type;
         $controller = new $controller_name($view, $path_params);
         $verb = strtolower($_SERVER["REQUEST_METHOD"]);
+
+        if ($verb === "post") {
+            parse_str(file_get_contents("php://input"),$GLOBALS["_POST"]);
+        }
 
         $controller->$verb();
     }

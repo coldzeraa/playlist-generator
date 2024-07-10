@@ -17,10 +17,11 @@ class Controllers_Dashboard extends Controllers_Base
 
     public function post()
     {
-        echo ("POST");
         $obj = new Domains_User($_POST);
         $data = $this->model->insert($obj);
+        
+        Utils_Login::register_session($data->id, $data->username);
 
-        $this->view->render(null);
+        $this->view->render($data);
     }
 }
