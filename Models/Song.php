@@ -40,6 +40,15 @@ class Models_Song extends Models_Base {
         }, $statement->fetchAll(PDO::FETCH_NUM));
     }
 
+    public function findByArtist(string $artist){
+        $query = "SELECT * FROM song WHERE artist = :artist;";
+        $statement = $this->connection->prepare($query);
+        $statement->execute([":artist" => $artist]);
+        return array_map(function ($data) {
+            return new Domains_Song($data);
+        }, $statement->fetchAll(PDO::FETCH_NUM));
+    }
+    
     public function findAllMoods(): array{
         $statement = "SELECT DISTINCT mood FROM song";
         $statement = $this->connection->query($statement);
@@ -48,6 +57,12 @@ class Models_Song extends Models_Base {
 
     public function findAllGenres(): array{
         $statement = "SELECT DISTINCT genre FROM song";
+        $statement = $this->connection->query($statement);
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function findAllArtists(): array{
+        $statement = "SELECT DISTINCT artist FROM song";
         $statement = $this->connection->query($statement);
         return $statement->fetchAll(PDO::FETCH_COLUMN);
     }

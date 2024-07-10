@@ -1,42 +1,253 @@
 <?php include __DIR__ . "/../_header.phtml"; ?>
-<?php /** @var Domains_User $data */ ?>
-    <?php if ($data) { ?>
+<?php /** @var Domains_Base $data */ ?>
+<?php { ?>
+    <!DOCTYPE html>
     <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Zentriertes Formular</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+        <style>
+            .dashboard-section {
+                margin-top: 20px;
+            }
+
+            .dashboard-title {
+                margin-bottom: 10px;
+            }
+
+            .card {
+                margin-bottom: 20px;
+            }
+
+            .navbar-brand {
+                font-weight: bold;
+            }
+        </style>
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/playlist-generator"><?=$data->username?></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="/playlist-generator/Generator">Generate Playlist</a>
-                        <a class="nav-link active" aria-disabled="false" href="/playlist-generator/Song">Show Songs</a>
-                        <a class="nav-link active" aria-disabled="false" href="/playlist-generator/Playlist">Show Playlists</a>
-                    </div>
+        <div class="container-fluid p-3 bg-primary text-white text-center rounded">
+            <h3>Playlist Generator</h3>
+            <p>Derntl, Pletz, Pointner</p>
+        </div>
+
+        <div class="container mt-3">
+            <div class="card border-primary">
+                <div class="card-body">
+                    <p class="card-text">Welcome, <?php echo $data->username; ?></p>
+                    
                 </div>
             </div>
-        </nav>
+        </div>
 
-        <h1>
-            Hello!
-        </h1>
+        <div class="container">
+            <div class="row dashboard-section">
 
+                <!-- Generate Playlist -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Generate Playlist</div>
+                        <div class="card-body">
+                            <p>Generate Playlist on:</p>
+                            <form>
+                                <!-- Mood -->
+                                <div class="d-flex align-items-center mt-3">
+                                    <h5 class="mb-0 me-3">Mood</h5>
+                                    <select class="form-select">
+                                        <option value="None">None</option>
+                                        <?php foreach ($data["moods"] as $obj): ?>
+                                            <option value="<?= $obj ?>"><?= $obj ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <!-- Genre -->
+                                <div class="d-flex align-items-center mt-3">
+                                    <h5 class="mb-0 me-3">Genre</h5>
+                                    <select class="form-select">
+                                        <option value="None">None</option>
+                                        <?php foreach ($data["genres"] as $obj): ?>
+                                            <option value="<?= $obj ?>"><?= $obj ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <!-- Artist -->
+                                <div class="d-flex align-items-center mt-3">
+                                    <h5 class="mb-0 me-3">Artist</h5>
+                                    <select class="form-select">
+                                        <option value="None">None</option>
+                                        <?php foreach ($data["artists"] as $obj): ?>
+                                            <option value="<?= $obj ?>"><?= $obj ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <!-- Submit button -->
+                                <div class="d-flex align-items-center mt-2">
+                                    <button type="button" class="btn btn-primary" onclick="generatePlaylistForm()">Generate
+                                        Playlist</button>
+                                </div>
+                            </form>
+                            <div id="playlist" class="mt-3"></div> <!-- Area to display playlist -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Songs -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Search Songs</div>
+                        <div class="card-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="inputSearch" class="form-label">Search</label>
+                                    <input type="text" class="form-control" id="inputSearch">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show All Songs -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">All Songs</div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <!-- Todo: show real songs -->
+                                <li class="list-group-item">Bohemian Rhapsody</li>
+                                <li class="list-group-item">Another Song</li>
+                                <li class="list-group-item">Hit Song</li>
+                            </ul>
+                            <button type="button" class="btn btn-primary" onclick="location.href='/playlist-generator/Song'">View all Songs</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- My Playlists -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">My Playlists</div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Playlist 1</li>
+                                <li class="list-group-item">Playlist 2</li>
+                                <li class="list-group-item">Playlist 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--TODO -Brauchma die nächsten 2????-->
+                <!-- Recommended Playlists -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Recommended Playlists</div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Playlist A</li>
+                                <li class="list-group-item">Playlist B</li>
+                                <li class="list-group-item">Playlist C</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">Recent Activity</div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Played "Song"</li>
+                                <li class="list-group-item">Created "List"</li>
+                                <li class="list-group-item">Shared "List"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            function generatePlaylistForm() {
+                // TODO not working
+                const moodElement = document.getElementById('selectMood');
+                const genreElement = document.getElementById('selectGenre');
+                const artistElement = document.getElementById('selectArtist');
+
+                const mood = moodElement ? moodElement.value : null;
+                const genre = genreElement ? genreElement.value : null;
+                const artist = artistElement ? artistElement.value : null;
+
+                const url = new URL(window.location);
+                url.pathname = '/playlist-generator/User/';
+
+                if (mood && mood !== 'None') {
+                    url.searchParams.append('mood', mood);
+                }
+                if (genre && genre !== 'None') {
+                    url.searchParams.append('genre', genre);
+                }
+                if (artist && artist !== 'None') {
+                    url.searchParams.append('artist', artist);
+                }
+
+                fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        console.error("GET request failed.");
+                        return null;
+                    }
+                }).then(data => {
+                    if (data) {
+                        console.log("GET request successful.");
+                        const playlist = data.songs || [];
+                        displayPlaylist(playlist);
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+            // Function to display playlist in the HTML
+            function displayPlaylist(playlist) {
+                const playlistContainer = document.getElementById('playlist');
+                playlistContainer.innerHTML = ''; // Clear previous playlist
+
+                if (playlist.length > 0) {
+                    const ul = document.createElement('ul');
+                    ul.className = 'list-group';
+                    playlist.forEach(song => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.textContent = song[1] + ' - ' + song[2]; // Adjust to the actual structure of the song object
+                        ul.appendChild(li);
+                    });
+                    playlistContainer.appendChild(ul);
+                } else {
+                    playlistContainer.textContent = 'No songs available for this type.';
+                }
+            }
+
+
+        </script>
     </body>
 
     </html>
 
 <?php } ?>
-
-
 <?php include __DIR__ . "/../_footer.phtml"; ?>

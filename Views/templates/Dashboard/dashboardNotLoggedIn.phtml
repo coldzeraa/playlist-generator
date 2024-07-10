@@ -26,6 +26,9 @@
             .navbar-brand {
                 font-weight: bold;
             }
+            .dropdown-header.text-primary {
+                color: #007bff !important; /* Bootstrap's primary color */
+            }
         </style>
     </head>
 
@@ -48,23 +51,21 @@
                                     Select Type
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <h5 class="dropdown-header">Mood</h5>
-                                    </li>
+                                    <li><h3 class="dropdown-header text-primary">Mood</h3></li>
+                                    <li><hr class="dropdown-divider"></hr></li>
                                     <?php
                                     foreach ($data["moods"] as $obj) {
                                     ?>
-                                        <li><a class="dropdown-item" href="#" onclick="generatePlaylist('<?= $obj ?>')"><?= $obj ?></a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="generatePlaylistOnMood('<?= $obj ?>')"><?= $obj ?></a></li>
                                     <?php
                                     }
                                     ?>
-                                    <li>
-                                        <h5 class="dropdown-header">Genre</h5>
-                                    </li>
+                                    <li><h3 class="dropdown-header text-primary">Genre</h3></li>
+                                    <li><hr class="dropdown-divider"></hr></li>
                                     <?php
                                     foreach ($data["genres"] as $obj) {
                                     ?>
-                                        <li><a class="dropdown-item" href="#" onclick="generatePlaylist('<?= $obj ?>')"><?= $obj ?></a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="generatePlaylistOnGenre('<?= $obj ?>')"><?= $obj ?></a></li>
                                     <?php
                                     }
                                     ?>
@@ -76,16 +77,17 @@
                     </div>
                 </div>
 
-                <!-- Show Not Logged In Top Liked Songs -->
+                <!-- Show Not Logged In Sll Songs -->
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">Top Songs</div>
+                    <div class="card mb-3">
+                        <div class="card-header">Example Songs</div>
                         <div class="card-body">
                             <ul class="list-group">
                                 <li class="list-group-item">Bohemian Rhapsody - Queen</li>
                                 <li class="list-group-item">Another Song - Artist</li>
                                 <li class="list-group-item">Hit Song - Artist</li>
                             </ul>
+                            <br>
                             <button type="button" class="btn btn-primary" onclick="location.href='/playlist-generator/Song'">View all Songs</button>
                         </div>
                     </div>
@@ -115,22 +117,22 @@
         </div>
 
         <script>
-            // Define playlists
-            const playlists = {
-                // TODO: get from backend
-                "Mood 1": ["Happy Song - Artist", "Sad Song - Artist", "Energetic Song - Artist"],
-                "Mood 2": ["Calm Song - Artist", "Reflective Song - Artist", "Chill Song - Artist"],
-                "Mood 3": ["Exciting Song - Artist", "Upbeat Song - Artist", "Motivational Song - Artist"],
-                "Genre 1": ["Rock Song - Artist", "Pop Song - Artist", "Jazz Song - Artist"],
-                "Genre 2": ["Electronic Song - Artist", "Hip Hop Song - Artist", "R&B Song - Artist"]
-            };
-
-            // Function to generate playlist based on type
-            function generatePlaylist(type) {
+            function generatePlaylistOnMood(type) {
                 const url = new URL(window.location);
                 url.pathname = '/playlist-generator/';
                 url.searchParams.append('mood', type);
+                generatePlaylist(type, url);
+            }
 
+            function generatePlaylistOnGenre(type) {
+                const url = new URL(window.location);
+                url.pathname = '/playlist-generator/';
+                url.searchParams.append('genre', type);
+                generatePlaylist(type, url);
+            }
+
+            // Function to generate playlist based on type
+            function generatePlaylist(type, url) {
                 fetch(url, {
                     method: "GET",
                     headers: {

@@ -8,7 +8,6 @@ class Domains_Playlist extends Domains_Base
             "id" => null,
             "name" => null,
             "totalTime" => null,
-            "songID" => null,
             "userID" => null,
         ];
         parent::__construct($data);
