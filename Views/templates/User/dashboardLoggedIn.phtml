@@ -1,5 +1,5 @@
 <?php include __DIR__ . "/../_header.phtml"; ?>
-<?php /** @var Domains_Base $data */ ?>
+<?php /** @var array $data */ ?>
 <?php { ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -39,8 +39,7 @@
         <div class="container mt-3">
             <div class="card border-primary">
                 <div class="card-body">
-                    <p class="card-text">Welcome, <?php echo $data->username; ?></p>
-                    
+                    <h5 class="card-text">Welcome, <?= $data["user"]->username; ?></>
                 </div>
             </div>
         </div>
@@ -58,9 +57,9 @@
                                 <!-- Mood -->
                                 <div class="d-flex align-items-center mt-3">
                                     <h5 class="mb-0 me-3">Mood</h5>
-                                    <select class="form-select">
+                                    <select id="selectMood" class="form-select">
                                         <option value="None">None</option>
-                                        <?php foreach ($data["moods"] as $obj): ?>
+                                        <?php foreach ($data["moods"] as $obj) : ?>
                                             <option value="<?= $obj ?>"><?= $obj ?></option>
                                         <?php endforeach; ?>
                                     </select>
@@ -69,9 +68,9 @@
                                 <!-- Genre -->
                                 <div class="d-flex align-items-center mt-3">
                                     <h5 class="mb-0 me-3">Genre</h5>
-                                    <select class="form-select">
+                                    <select id="selectGenre" class="form-select">
                                         <option value="None">None</option>
-                                        <?php foreach ($data["genres"] as $obj): ?>
+                                        <?php foreach ($data["genres"] as $obj) : ?>
                                             <option value="<?= $obj ?>"><?= $obj ?></option>
                                         <?php endforeach; ?>
                                     </select>
@@ -80,9 +79,9 @@
                                 <!-- Artist -->
                                 <div class="d-flex align-items-center mt-3">
                                     <h5 class="mb-0 me-3">Artist</h5>
-                                    <select class="form-select">
+                                    <select id="selectArtist" class="form-select">
                                         <option value="None">None</option>
-                                        <?php foreach ($data["artists"] as $obj): ?>
+                                        <?php foreach ($data["artists"] as $obj) : ?>
                                             <option value="<?= $obj ?>"><?= $obj ?></option>
                                         <?php endforeach; ?>
                                     </select>
@@ -99,32 +98,22 @@
                     </div>
                 </div>
 
-                <!-- Search Songs -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">Search Songs</div>
-                        <div class="card-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="inputSearch" class="form-label">Search</label>
-                                    <input type="text" class="form-control" id="inputSearch">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Show All Songs -->
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">All Songs</div>
                         <div class="card-body">
                             <ul class="list-group">
-                                <!-- Todo: show real songs -->
-                                <li class="list-group-item">Bohemian Rhapsody</li>
-                                <li class="list-group-item">Another Song</li>
-                                <li class="list-group-item">Hit Song</li>
+                                <?php
+                                $counter = 0;
+                                foreach ($data["songs"] as $obj) :
+                                    if ($counter >= 3) break;
+                                ?>
+                                    <li class="list-group-item"><?= $obj->name ?></li>
+                                <?php
+                                    $counter++;
+                                endforeach;
+                                ?>
                             </ul>
                             <button type="button" class="btn btn-primary" onclick="location.href='/playlist-generator/Song'">View all Songs</button>
                         </div>
@@ -138,57 +127,49 @@
                         <div class="card-header">My Playlists</div>
                         <div class="card-body">
                             <ul class="list-group">
-                                <li class="list-group-item">Playlist 1</li>
-                                <li class="list-group-item">Playlist 2</li>
-                                <li class="list-group-item">Playlist 3</li>
+                                <?php
+                                $counter = 0;
+                                foreach ($data["playlists"] as $obj) :
+                                    if ($counter >= 3) break;
+                                ?>
+                                    <li class="list-group-item"><?= $obj->name ?></li>
+                                <?php
+                                    $counter++;
+                                endforeach;
+                                ?>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--TODO -Brauchma die nächsten 2????-->
-                <!-- Recommended Playlists -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">Recommended Playlists</div>
-                        <div class="card-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">Playlist A</li>
-                                <li class="list-group-item">Playlist B</li>
-                                <li class="list-group-item">Playlist C</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recent Activity -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">Recent Activity</div>
-                        <div class="card-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">Played "Song"</li>
-                                <li class="list-group-item">Created "List"</li>
-                                <li class="list-group-item">Shared "List"</li>
-                            </ul>
+                            <button type="button" class="btn btn-primary" onclick="location.href='/playlist-generator/Playlist'">View all Playlists</button>
                         </div>
                     </div>
                 </div>
                 
+
             </div>
         </div>
         <script>
             function generatePlaylistForm() {
-                // TODO not working
+                // Ask for playlist name
+                const playlistName = prompt("Enter playlist name: ");
+
+                // Check if name was entered
+                if (!playlistName || playlistName.trim() === "") {
+                    alert("Name cannot be empty!");
+                    return;
+                }
+                // Get selected attributes
                 const moodElement = document.getElementById('selectMood');
                 const genreElement = document.getElementById('selectGenre');
                 const artistElement = document.getElementById('selectArtist');
 
+                // Check if they were set
                 const mood = moodElement ? moodElement.value : null;
                 const genre = genreElement ? genreElement.value : null;
                 const artist = artistElement ? artistElement.value : null;
 
+                // Prepare URL
                 const url = new URL(window.location);
                 url.pathname = '/playlist-generator/User/';
+                url.searchParams.append('name', playlistName);
 
                 if (mood && mood !== 'None') {
                     url.searchParams.append('mood', mood);
@@ -207,43 +188,16 @@
                     },
                 }).then(response => {
                     if (response.ok) {
+                        window.location.reload();
                         return response.json();
                     } else {
                         console.error("GET request failed.");
                         return null;
                     }
-                }).then(data => {
-                    if (data) {
-                        console.log("GET request successful.");
-                        const playlist = data.songs || [];
-                        displayPlaylist(playlist);
-                    }
                 }).catch(error => {
                     console.error('Error:', error);
                 });
             }
-
-            // Function to display playlist in the HTML
-            function displayPlaylist(playlist) {
-                const playlistContainer = document.getElementById('playlist');
-                playlistContainer.innerHTML = ''; // Clear previous playlist
-
-                if (playlist.length > 0) {
-                    const ul = document.createElement('ul');
-                    ul.className = 'list-group';
-                    playlist.forEach(song => {
-                        const li = document.createElement('li');
-                        li.className = 'list-group-item';
-                        li.textContent = song[1] + ' - ' + song[2]; // Adjust to the actual structure of the song object
-                        ul.appendChild(li);
-                    });
-                    playlistContainer.appendChild(ul);
-                } else {
-                    playlistContainer.textContent = 'No songs available for this type.';
-                }
-            }
-
-
         </script>
     </body>
 

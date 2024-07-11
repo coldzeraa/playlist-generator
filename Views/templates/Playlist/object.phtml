@@ -1,0 +1,81 @@
+<?php include __DIR__."/../_header.phtml"; ?>
+<?php /** @var array $data */ ?>
+<?php if ($data) { ?>
+
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .form-group {
+                margin: 10px 0;
+            }
+            .form-control-plaintext {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #f9f9f9;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                border: 1px solid #ccc;
+                padding: 10px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+        <title>Details of <?= htmlspecialchars($data["playlist"]->name) ?></title>
+    </head>
+    <body>
+        <div class="form-group">
+            <label for="playlistName">Playlist Name:</label>
+            <div class="form-control-plaintext" id="playlistName"><?= htmlspecialchars($data["playlist"]->name) ?></div>
+        </div>
+        <div class="form-group">
+            <label for="playlistTotalTime">Total Time:</label>
+            <div class="form-control-plaintext" id="playlistTotalTime"><?= htmlspecialchars($data["playlist"]->totalTime) ?> seconds</div>
+        </div>
+        <div class="form-group">
+            <label for="playlistUser">User:</label>
+            <div class="form-control-plaintext" id="playlistUser"><?= htmlspecialchars($data["playlist"]->userId) ?></div>
+        </div>
+
+        <h2>Songs in this Playlist</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Artist</th>
+                    <th>Genre</th>
+                    <th>Mood</th>
+                    <th>Length (seconds)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($data["songs"] as $song) { ?>
+                    <tr>
+                        <td><?= htmlspecialchars($song->id) ?></td>
+                        <td><?= htmlspecialchars($song->name) ?></td>
+                        <td><?= htmlspecialchars($song->artist) ?></td>
+                        <td><?= htmlspecialchars($song->genre) ?></td>
+                        <td><?= htmlspecialchars($song->mood) ?></td>
+                        <td><?= htmlspecialchars($song->length) ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </body>
+    </html>
+
+<?php } else { ?>
+    <div>No data found.</div>
+<?php } ?>
+
+<?php include __DIR__."/../_footer.phtml"; ?>

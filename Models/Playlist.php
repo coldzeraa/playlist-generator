@@ -28,13 +28,13 @@ class Models_Playlist extends Models_Base {
     }
 
     public function insert(Domains_Playlist $obj){
-        $query = "INSERT INTO playlist (name, description, created_at)
-                  VALUES (:name, :description, :created_at);";
+        $query = "INSERT INTO playlist (name, totalTime, userId)
+                  VALUES (:name, :totalTime, :userId);";
         $statement = $this->connection->prepare($query);
         $statement->execute([
             ":name" => $obj->name,
-            ":description" => $obj->description,
-            ":created_at" => $obj->created_at
+            ":totalTime" => $obj->totalTime,
+            ":userId" => $obj->userID
         ]);
         $lastId = $this->connection->lastInsertId();
         return $this->findById($lastId);

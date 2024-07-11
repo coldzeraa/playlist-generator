@@ -28,11 +28,11 @@ class Views_Html extends Views_Base
                 $template = "dashboardLoggedIn.phtml";
                 break;
             case "Controllers_Playlist":
-                if(is_array($data)) {
-                    $template = "table.phtml";
+                if(isset($data["songs"]) && isset($data["playlist"])) {
+                    $template = "object.phtml";
                     break;
                 }else{
-                    $template = "object.phtml";
+                    $template = "table.phtml";
                     break;
                 }
             case "Controllers_Generator":

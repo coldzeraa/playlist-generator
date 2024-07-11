@@ -1,5 +1,5 @@
 <?php include __DIR__ . "/../_header.phtml"; ?>
-<?php /** @var Domains_Base $data */ ?>
+<?php /** @var array $data */ ?>
 <?php { ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -26,8 +26,10 @@
             .navbar-brand {
                 font-weight: bold;
             }
+
             .dropdown-header.text-primary {
-                color: #007bff !important; /* Bootstrap's primary color */
+                color: #007bff !important;
+                /* Bootstrap's primary color */
             }
         </style>
     </head>
@@ -51,8 +53,13 @@
                                     Select Type
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><h3 class="dropdown-header text-primary">Mood</h3></li>
-                                    <li><hr class="dropdown-divider"></hr></li>
+                                    <li>
+                                        <h3 class="dropdown-header text-primary">Mood</h3>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                        </hr>
+                                    </li>
                                     <?php
                                     foreach ($data["moods"] as $obj) {
                                     ?>
@@ -60,8 +67,13 @@
                                     <?php
                                     }
                                     ?>
-                                    <li><h3 class="dropdown-header text-primary">Genre</h3></li>
-                                    <li><hr class="dropdown-divider"></hr></li>
+                                    <li>
+                                        <h3 class="dropdown-header text-primary">Genre</h3>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                        </hr>
+                                    </li>
                                     <?php
                                     foreach ($data["genres"] as $obj) {
                                     ?>
@@ -80,7 +92,7 @@
                 <!-- Show Not Logged In Sll Songs -->
                 <div class="col-md-4">
                     <div class="card mb-3">
-                        <div class="card-header">Example Songs</div>
+                        <div class="card-header">Songs</div>
                         <div class="card-body">
                             <ul class="list-group">
                                 <li class="list-group-item">Bohemian Rhapsody - Queen</li>
@@ -160,14 +172,13 @@
             function displayPlaylist(playlist) {
                 const playlistContainer = document.getElementById('playlist');
                 playlistContainer.innerHTML = ''; // Clear previous playlist
-
                 if (playlist.length > 0) {
                     const ul = document.createElement('ul');
                     ul.className = 'list-group';
                     playlist.forEach(song => {
                         const li = document.createElement('li');
                         li.className = 'list-group-item';
-                        li.textContent = song[1] + ' - ' + song[2]; // Adjust to the actual structure of the song object
+                        li.textContent = song["artist"] + ' - ' + song["name"]; // Adjust to the actual structure of the song object
                         ul.appendChild(li);
                     });
                     playlistContainer.appendChild(ul);
@@ -182,20 +193,24 @@
                 const password = document.getElementById("inputPassword").value;
                 console.log("username: " + username + "\npassword: " + password);
 
-                console.log(window.location);
-
                 fetch(window.location, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
-                    body: "username=" + username + "&password=" + password
+                    body: "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password)
                 }).then(response => {
                     if (response.ok) {
                         console.log("POST request successful.");
-                        window.location.href = "/playlist-generator/User/";
+                        return response.text();
                     } else {
                         console.error("POST request failed.");
+                    }
+                }).then(text => {
+                    if (text == -1) {
+                        alert("Username already in use!");
+                    } else {
+                        window.location.href = "/playlist-generator/User/";
                     }
                 }).catch(error => {
                     console.error('Error:', error);
